@@ -39,6 +39,16 @@ func (e *errorStr) String() string {
 	return e.message + " [" + e.frame.String() + "]"
 }
 
+type ErrorStr interface {
+	error
+	String() string
+	Location() (function, file string, line int)
+}
+
+func (e *errorStr) Location() (function, file string, line int) {
+	return e.frame.location()
+}
+
 func (f frame) String() (str string) {
 	function, file, line := f.location()
 	str = function
