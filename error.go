@@ -87,7 +87,7 @@ func Wrapf(skip int, err error, f string, a ...interface{}) error {
 Wrap wraps error with string message
 */
 func Wrap(err error, msg string, skip ...int) error {
-	s := Fnz(skip...)
+	s := fnz(skip...)
 	return &errorStr{msg, err, caller(s + 1)}
 }
 
@@ -95,7 +95,7 @@ func Wrap(err error, msg string, skip ...int) error {
 New creates new error
 */
 func New(msg string, skip ...int) error {
-	s := Fnz(skip...)
+	s := fnz(skip...)
 	return &errorStr{msg, nil, caller(s + 1)}
 }
 
@@ -121,4 +121,14 @@ func ErrorOf(e interface{}) error {
 		return p
 	}
 	return errors.New(fmt.Sprint(e))
+}
+
+/*
+Fnz returns first non-zero int
+*/
+func fnz(a ...int) int {
+	for _, x := range a {
+		if x != 0 { return x }
+	}
+	return 0
 }
