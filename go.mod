@@ -1,4 +1,4 @@
-module sudachen.xyz/pkg/errstr
+module go4ml.xyz/errstr
 
 go 1.16
 
